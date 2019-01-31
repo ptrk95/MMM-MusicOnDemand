@@ -58,7 +58,7 @@ The module has for now 7 features:
 
 #### Hint: Wait for initialization and log in process before sending any notifications to this module! When the module is ready it looks like the screenshot.
 
-To use the above features you have to send predefined notifications to this module. This is a table of how the notifications have to be:
+To use the above features you have to send predefined notifications to this module. This is a table of the notifications:
 
 | Notification | payload | Description |
 |:------------ |:------- |:----------- |
@@ -69,3 +69,138 @@ To use the above features you have to send predefined notifications to this modu
 | "AtMusicOnDemand" | payload.message="Close" | Closes Browser |
 | "AtMusicOnDemand" | payload.message="Artist"; payload.Artist="NAME_OF_ARTIST" | Searches for a Artist and plays hits |
 | "AtMusicOnDemand" | payload.message="Title"; payload.Title="NAME_OF_TITLE" | Searches for a Title and plays it |
+
+For example, this will search for the title "Losing it" if you send this with your module:
+```
+this.sendNotification('AtMusicOnDemand', {message:Title, Title: 'Losing it'});
+```
+As you can see the information about the name of the title is needed for this action, this is where a speech recognition software comes in handy. I already set up a couple of "transcription hooks" and even two [gactions](https://developers.google.com/actions/) in combination with [MMM-AssistantMk2](https://github.com/eouia/MMM-AssistantMk2), so that all the features are available. 
+
+### The following only works with [MMM-AssistantMk2](https://github.com/eouia/MMM-AssistantMk2)
+#### If you don't know where you have to place the code, click on the link above
+First you have to add the following commands to your config file:
+```
+command: {
+"CLOSE_MUSIC": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+			message: "Close",		      
+      			}
+		},
+	},
+	"SEARCHTITLE": {
+		notificationExec: {
+			notification :() =>{
+			return "AtMusicOnDemand"
+			},	
+		      payload:(params, key)=> {
+			return {
+			 message:"Title", 
+			 Title: key.Title,	
+		    		}
+			}
+		},
+	},
+	"SEARCHARTIST": {
+		notificationExec: {
+			notification :() =>{
+			return "AtMusicOnDemand"
+			},	
+		      payload:(params, key)=> {
+			return {
+			 message:"Artist", 
+			 Artist: key.Artist,	
+		    		}
+			}
+		},
+	},
+	"PLAYMUSIC": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+			message: "Play",		      
+      			}
+		},
+	},
+	"NEXT_TITLE": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+			message: "Next",		      
+      			}
+		},
+	},
+	"PAUSE_MUSIC": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+			message: "Pause",		      
+      			}
+		},
+	},
+	"PREV_TITLE": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+			message: "Previous",		      
+      			}
+		},
+	},
+	
+},
+```
+
+Then add this transcription hooks to the config file.
+Of course you can change the patterns to what ever you wish, for example translate it in your language:
+```
+transcriptionHook: {
+		"PLAYMUSIC":{
+			pattern: "play music",
+			command: "PLAYMUSIC",
+		},
+		"NEXT_TITLE":{
+			pattern: "next song",
+			command: "NEXT_TITLE",
+		},
+		"PAUSE_MUSIC":{
+			pattern: "pause",
+			command: "PAUSE_MUSIC",
+		},
+		"PREV_TITLE":{
+			pattern: "previous song",
+			command: "PREV_TITLE",
+		},
+		"CLOSE_MUSIC":{
+			pattern: "stop music",
+			command: "CLOSE_MUSIC",
+		},
+},
+```
+
+For the search features you have to add gactions to the config file **and followed the last chapter** [here](https://github.com/eouia/MMM-AssistantMk2/blob/master/USAGE.md)!:
+```
+action:{
+	"SEARCHTITLE" : {
+		command: "SEARCHTITLE"
+	},
+	"SEARCHARTIST" : {
+		command: "SEARCHARTIST"
+	},
+},
+```
+Now download gactions (if you haven't done it as described [here](https://github.com/eouia/MMM-AssistantMk2/blob/master/gaction/README.md)):
+```
+#example for RPI
+cd ~/MagicMirror/modules/MMM-AssistantMk2/gaction
+wget https://dl.google.com/gactions/updates/bin/linux/arm/gactions
+chmod +x gactions
+```
+You can use and modify my actions.js as you please. I commented german phrases besides the english ones, so you can copy and paste it if you know german. But remember to place it here: MagicMirror/modules/MMM-AssistantMk2/gaction
+And also don't forget to do the following: 
+ ```
+ cd ~/MagicMirror/modules/MMM-AssistantMk2/gaction
+./gactions update --action_package actions.json --project YOUR_PROJECT_ID
+./gactions test --action_package actions.json --project YOUR_PROJECT_ID
+```
+
