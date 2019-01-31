@@ -46,11 +46,25 @@ Edit email and password to your Deezer credentials. The default value of chromiu
 ## Setup
 ### This explains how to use the module but you can copy paste most of the time
 
-The module has for now 5 features:
-- Play music
+The module has for now 7 features:
+- Play music 
 - Pause music
 - Play next title
+- Play previous title (if available)
+- Stop music (closes browser, but module remains active)
 - Search a title and play it
 - Search a artist and play the top titles
 
 #### Hint: Wait for initialization and log in process before sending any notifications to this module! When the module is ready it looks like the screenshot.
+
+To use the above features you have to send predefined notifications to this module. This is a table of how the notifications have to be:
+
+| Notification | payload | Description |
+|:------------ |:------- |:----------- |
+| "AtMusicOnDemand" | payload.message="Play" | Plays music |
+| "AtMusicOnDemand" | payload.message="Pause" | Pauses music |
+| "AtMusicOnDemand" | payload.message="Next" | Plays next Title |
+| "AtMusicOnDemand" | payload.message="Previous" | Plays previous Title |
+| "AtMusicOnDemand" | payload.message="Close" | Closes Browser |
+| "AtMusicOnDemand" | payload.message="Artist"; payload.Artist="NAME_OF_ARTIST" | Searches for a Artist and plays hits |
+| "AtMusicOnDemand" | payload.message="Title"; payload.Title="NAME_OF_TITLE" | Searches for a Title and plays it |
