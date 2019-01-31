@@ -1,21 +1,26 @@
 {
   "name": "mmm-musicondemand",
   "version": "1.0.0",
-  "description": "testing",
+  "description": "A module for Magic Mirror using music on demand.",
   "main": "MMM-MusicOnDemand.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "test": "bla"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "nothing"
+    "url": "git+https://github.com/ptrk95/MMM-MusicOnDemand.git"
   },
   "keywords": [
-    "test"
+    "musicondemand",
+    "music",
+    "deezer"
   ],
-  "author": "ich",
-  "license": "ISC",
-  "dependencies": {
-    "puppeteer": "^1.11.0"
-  }
+  "author": "Patrick Müller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ptrk95/MMM-MusicOnDemand/issues"
+  },
+  "homepage": "https://github.com/ptrk95/MMM-MusicOnDemand#readme"
 }

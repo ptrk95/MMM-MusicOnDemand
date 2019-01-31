@@ -1,0 +1,161 @@
+{
+	"locale": "en",  //"de"
+	"manifest": {
+		"displayName": "Music Player",
+		"invocationName": "Music Player",
+		"category": "PRODUCTIVITY"
+	},
+	"actions": [{
+			"name": "searchArtist",
+			"availability": {
+				"deviceClasses": [{
+					"assistantSdkDevice": {}
+				}]
+			},
+			"intent": {
+				"name": "searchArtist",
+				"parameters": [{
+					"name": "musician",
+					"type": "SchemaOrg_Text"
+				}],
+				"trigger": {
+					"queryPatterns": [
+						"play music from $SchemaOrg_Text:musician",  //"spiel musik von $SchemaOrg_Text:musician",
+						"play titles from $SchemaOrg_Text:musician",  //"spiel lieder von $SchemaOrg_Text:musician",
+						"play something from $SchemaOrg_Text:musician",  //"spiel was von $SchemaOrg_Text:musician",
+						"play  hits from $SchemaOrg_Text:musician",  //"spiel hits von $SchemaOrg_Text:musician",
+						"play best titles from $SchemaOrg_Text:musician",  //"spiel die besten lieder von $SchemaOrg_Text:musician",
+						"i want to hear something from $SchemaOrg_Text:musician"  //"ich mag was von $SchemaOrg_Text:musician hören",
+													//"ich will was von  $SchemaOrg_Text:musician hören"
+					]
+				}
+			},
+			"fulfillment": {
+				"staticFulfillment": {
+					"templatedResponse": {
+						"items": [{
+								"simpleResponse": {
+									"textToSpeech": "as you wish"  //"wird gemacht"
+								}
+							},
+							{
+								"deviceExecution": {
+									"command": "SEARCHARTIST",
+									"params": {
+										"Artist": "$musician"
+									}
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"name": "searchTitle",
+			"availability": {
+				"deviceClasses": [{
+					"assistantSdkDevice": {}
+				}]
+			},
+			"intent": {
+				"name": "searchTitle",
+				"parameters": [{
+					"name": "Title",
+					"type": "SchemaOrg_Text"
+				}],
+				"trigger": {
+					"queryPatterns": [
+						"title $SchemaOrg_Text:Title",  //"titel $SchemaOrg_Text:Title",
+						"play the song $SchemaOrg_Text:Title",  //"spiel den titel $SchemaOrg_Text:Title",
+						"play the title $SchemaOrg_Text:Title",  //"spiel den titel $SchemaOrg_Text:Title ab",
+										//"spiele den titel $SchemaOrg_Text:Title",
+										//"spiele den titel $SchemaOrg_Text:Title ab",
+						"song $SchemaOrg_Text:Title"  //"lied $SchemaOrg_Text:Title",
+										//"spiel das lied $SchemaOrg_Text:Title",
+										//"spiel das lied $SchemaOrg_Text:Title ab"
+					]
+				}
+			},
+			"fulfillment": {
+				"staticFulfillment": {
+					"templatedResponse": {
+						"items": [{
+								"simpleResponse": {
+									"textToSpeech": "as you wish" //"alles klar"
+								}
+							},
+							{
+								"deviceExecution": {
+									"command": "SEARCHTITLE",
+									"params": {
+										"Title": "$Title"
+									}
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	],
+	"types": [{
+			"name": "$Now",
+			"entities": [{
+				"key": "now",
+				"synonyms": [
+					"now",
+					"immediately",
+					"ASAP"
+				]
+			}]
+		},
+		{
+			"name": "$Unit",
+			"entities": [{
+					"key": "SEC",
+					"synonyms": [
+						"second",
+						"seconds"
+					]
+				},
+				{
+					"key": "MIN",
+					"synonyms": [
+						"minute",
+						"minutes"
+					]
+				}
+			]
+		},
+		{
+			"name": "$IncOrDec",
+			"entities": [{
+					"key": "INC",
+					"synonyms": [
+						"next",
+						"forward",
+						"advance",
+						"increment",
+						"increase",
+						"plus",
+						"up",
+						"jump"
+					]
+				},
+				{
+					"key": "DEC",
+					"synonyms": [
+						"previous",
+						"back",
+						"backward",
+						"decrement",
+						"decrease",
+						"minus",
+						"down"
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,12 +1,3 @@
-
-var init = "Initializing...";
-var Title = "";
-var Artist = "";
-var currentTime = "";
-var maxTime = "";
-var CoverLink = "";
-var closed = false;
-
 Module.register("MMM-MusicOnDemand",{
 	
 	defaults:{
@@ -21,23 +12,31 @@ Module.register("MMM-MusicOnDemand",{
 	},
 	
 	start: function(){
+		this.init = "Initializing...";
+		this.Title = "";
+		this.Artist = "";
+		this.currentTime = "";
+		this.maxTime = "";
+		this.CoverLink = "";
+		this.closed = false;
 		this.sendSocketNotification("CONFIG", this.config);	
 	},
 	
 	getDom: function(){
 		var wrapper = document.createElement("div");
 		var text = '';
-		if(!closed){
-			text += "<div class='player'>";
-			text += "<div class='text-container'><table class='small'><tr class='title bright'><td>"+ Title +"</td></tr><tr class='artist'><td>"+ Artist +"</td></tr><tr class='init'><td>"+ init +"</td><tr class='time'><td>"+ currentTime + " " + maxTime + "</td></tr></tr></table></div>";
-			if(this.config.showCover && Artist != "Deezer"){
-				text += "<div class='cover-container'><div class='cover'><img src='"+ CoverLink +"' width='250'></div></div>";
+		Log.error(this.closed);
+		if(!this.closed){
+			text += "<div class='MOD_player'>";
+			text += "<div class='MOD_text-container'><table class='small'><tr class='MOD_init'><td>"+ this.init +"</td></tr><tr class='MOD_title bright'><td>"+ this.Title +"</td></tr><tr class='MOD_artist'><td>"+ this.Artist +"</td></tr><tr class='MOD_time'><td>"+ this.currentTime + " " + this.maxTime + "</td></tr></table></div>";
+			if(this.config.showCover && this.Artist != "Deezer"){
+				text += "<div class='MOD_cover-container'><div class='MOD_cover'><img src='"+ this.CoverLink +"' width='250'></div></div>";
 			}
 
 			text += "</div>";
 			//text = "<p>" + init + "<br>" + "Title: " + Title + "<br>" + "Artist: " + Artist + "<br>" + currentTime + "/" + maxTime + "</p>" + Cover;
 		}else{
-			wrapper.innerHTML = "Closed";
+			wrapper.innerHTML = "";
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
@@ -49,30 +48,33 @@ Module.register("MMM-MusicOnDemand",{
 	socketNotificationReceived: function(notification, payload) {
 		switch(notification){
 			case("LogIn"):
-				closed = false;
-				init = "Logging in to deezer...";
+				this.closed = false;
+				this.init = "Logging in to deezer...";
 				break;
 			case("Ready"):
-				init = "";
+				this.init = "";
 				break;
 			case("Title"):
-				Title = payload;
+				this.Title = payload;
 				break;
 			case("Update"):
-				Artist = payload.Artist;
-				Title = payload.Title;
-				maxTime = payload.MaxTime;
-				currentTime = payload.CurrentTime;
+				this.Artist = payload.Artist;
+				this.Title = payload.Title;
+				this.maxTime = payload.MaxTime;
+				this.currentTime = payload.CurrentTime + ' /';
 				break;
 			case("Ads"):
-				Title = "Ads";
-				Artist = "Deezer";
-				Cover = "";
+				this.Title = "Ads";
+				this.Artist = "Deezer";
+				this.currentTime = "";
+				this.maxTime = "";
+				this.Cover = "";
 			case("Cover"):
-				CoverLink = payload;
+				this.CoverLink = payload;
 				break;
 			case("Closed"):
-				closed = true;
+				this.closed = true;
+				Log.error(this.closed);
 				break;
 			default:
 				break;
