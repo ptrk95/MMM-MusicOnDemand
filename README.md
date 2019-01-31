@@ -36,6 +36,7 @@ Copy the following to your config.txt:
 	position: "upper_third",
 	config: {
 		chromiumPath : "/usr/bin/chromium-browser",  // chromiumPath : null, if you want to use puppeteer browser
+		showCover : true,
 		email : "yourDeezer-email",
 		password : "your-Deezer-password",
 	 }
