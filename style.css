@@ -1,0 +1,40 @@
+.player{
+    margin : auto;
+    width:250px;
+    display: block;
+}
+
+.cover-container{
+
+}
+
+.text-container{
+
+}
+
+.cover{
+    width:250px;
+    height:250px;
+}
+
+.init{
+    font-size:28px;
+    font-weight: bold;
+    margin: 0;
+}
+    
+.title{
+    font-size:20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.artist{
+    font-size:20px;
+    margin: 0px;
+}
+
+.time{
+    font-size:20px;
+    margin: 0px;
+}

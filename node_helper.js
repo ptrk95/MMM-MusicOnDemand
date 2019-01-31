@@ -44,20 +44,35 @@ module.exports = NodeHelper.create({
 				break;
 				
 		}
+	}, 
+
+	stop : function(){
+		closeBrowser();
 	}
 });
 
 async function closeBrowser(){
-	loggedIn = false;
-	playingMusic = false;
-	await page.close();
-    await browser.close();
+	try{
+		loggedIn = false;
+		playingMusic = false;
+		await page.close();
+		await browser.close();
+		self.sendSocketNotification("Closed", "");
+	}catch(error){
+		console.error(error);
+	}
+	
 }
 
 
 async function LoginDeezer(){
 	try{
-		browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', ignoreDefaultArgs: ['--mute-audio']}); // headless : false
+		if(config.chromiumPath != null){
+			browser = await puppeteer.launch({ executablePath: config.chromiumPath, ignoreDefaultArgs: ['--mute-audio']}); // headless : false
+		}else{
+			browser = await puppeteer.launch({ignoreDefaultArgs: ['--mute-audio']}); // headless : false
+		}
+		
 		page = await browser.newPage();
 		await page.setDefaultNavigationTimeout(120000);
 		//await page.setViewport({width:200, height:80});
