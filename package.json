@@ -1,0 +1,21 @@
+{
+  "name": "mmm-musicondemand",
+  "version": "1.0.0",
+  "description": "testing",
+  "main": "MMM-MusicOnDemand.js",
+  "scripts": {
+    "test": "bla"
+  },
+  "repository": {
+    "type": "git",
+    "url": "nothing"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "ich",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^1.11.0"
+  }
+}
