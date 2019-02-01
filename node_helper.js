@@ -84,8 +84,9 @@ async function LoginDeezer(){
 		}else{
 			self.browser = await puppeteer.launch({ignoreDefaultArgs: ['--mute-audio']}); // headless : false
 		}
-		
+	
 		self.page = await self.browser.newPage();
+		
 		await self.page.setDefaultNavigationTimeout(120000);
 		//await page.setViewport({width:200, height:80});
 		await self.page.goto("https://www.deezer.com/login");

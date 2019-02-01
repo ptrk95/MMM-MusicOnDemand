@@ -74,7 +74,6 @@ Module.register("MMM-MusicOnDemand",{
 				break;
 			case("Closed"):
 				this.closed = true;
-				Log.error(this.closed);
 				break;
 			default:
 				break;
