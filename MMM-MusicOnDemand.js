@@ -26,7 +26,6 @@ Module.register("MMM-MusicOnDemand",{
 	getDom: function(){
 		var wrapper = document.createElement("div");
 		var text = '';
-		Log.error(this.closed);
 		if(!this.closed){
 			text += "<div class='MOD_player'>";
 			text += "<div class='MOD_text-container'><table class='small'><tr class='MOD_init'><td>"+ this.init +"</td></tr><tr class='MOD_title bright'><td>"+ this.Title +"</td></tr><tr class='MOD_artist'><td>"+ this.Artist +"</td></tr><tr class='MOD_time'><td>"+ this.currentTime + " " + this.maxTime + "</td></tr></table></div>";
