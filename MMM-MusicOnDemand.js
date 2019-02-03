@@ -3,6 +3,7 @@ Module.register("MMM-MusicOnDemand",{
 	defaults:{
 		chromiumPath: "/usr/bin/chromium-browser", // Set: chromiumPath : null, if you want to use the puppeteer chromium
 		showCover : true,
+		showBrowser : false,  // change to true if you want to see whats going on in the browser
 		email: "maxmustermann@email.com",
 		password: "MaxMusterMann"
 	},

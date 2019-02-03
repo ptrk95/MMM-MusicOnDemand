@@ -80,9 +80,9 @@ async function closeBrowser(stop){
 async function LoginDeezer(){
 	try{
 		if(self.config.chromiumPath != null){
-			self.browser = await puppeteer.launch({ executablePath: self.config.chromiumPath, ignoreDefaultArgs: ['--mute-audio']}); // headless : false
+			self.browser = await puppeteer.launch({ executablePath: self.config.chromiumPath, ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
 		}else{
-			self.browser = await puppeteer.launch({ignoreDefaultArgs: ['--mute-audio']}); // headless : false
+			self.browser = await puppeteer.launch({ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
 		}
 	
 		self.page = await self.browser.newPage();
