@@ -212,13 +212,19 @@ And also don't forget to do the following:
 
 #### Preinstalled Chromium/Chrome not launching or "Initializing..." all the time
 That's most likely a versioning error between puppeteer and your installation of Chromium/Chrome! 
+
 Try: 
 ```
 cd ~/MagicMirror/modules/MMM-MusicOnDemand
 npm install puppeteer@1.11.0
 ```
 And make sure your Chromium version is at least Version 65.0.3325.181! 
+
 Update with:
 ```
 sudo apt-get install chromium-browser
 ```
+
+Also make sure you set the correct path in the config.txt file. 
+
+For Raspberry Pi 3 it is: "/usr/bin/chromium-browser"
