@@ -106,7 +106,7 @@ command: {
 		      payload:(params, key)=> {
 			return {
 			 message:"Title", 
-			 Title: key.Title,	
+			 Title: params.Title,	
 		    		}
 			}
 		},
@@ -119,7 +119,7 @@ command: {
 		      payload:(params, key)=> {
 			return {
 			 message:"Artist", 
-			 Artist: key.Artist,	
+			 Artist: params.Artist,	
 		    		}
 			}
 		},
