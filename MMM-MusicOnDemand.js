@@ -98,7 +98,6 @@ Module.register("MMM-MusicOnDemand",{
 					this.sendSocketNotification("PREVIOUS", "");
 					break;
 				case("Artist"):
-					console.error(payload);
 					this.sendSocketNotification("Artist", payload.Artist);				
 					break;
 				case("Close"):
