@@ -39,12 +39,17 @@ Copy the following to your config.txt:
 		chromiumPath : "/usr/bin/chromium-browser",  // chromiumPath : null, if you want to use puppeteer browser
 		showCover : true,
 		showBrowser : false,    // change to true if you want to see whats going on in the browser
-		email : "yourDeezer-email",
-		password : "your-Deezer-password",
+		userDataDir : "/home/pi/.config/chromium" //the directory of your user data from the browser, default is for raspberry pi without changes
 	 }
  },
 ```
-Edit email and password to your Deezer credentials. The default value of chromiumPath works for Raspberry Pi with Raspbian Stretch. Change it to null if you want to use the puppeteer browser (maybe on Mac OS) or to another path with a installed chromium (chrome) version.
+# Update 17.03.2019 reCaptcha problem:
+
+Since Deezer uses reCaptcha you need to use a preinstalled browser! 
+Open up the browser you use for puppeteer (e.g. Pi users: chromium). Log in to Deezer. Close the Browser and make sure the next time you go to the Deezer website, you should already be logged in!
+
+Change the userDataDir in your config file to your needs. For example the path of your user data directory using a Raspberry Pi without any changes should be: "/home/pi/.config/chromium" 
+
 
 #### The module is now READY and should log you in, which looks similar to the screenshot! But you can't control it if you don't send any notifications to it, as described below.
 
