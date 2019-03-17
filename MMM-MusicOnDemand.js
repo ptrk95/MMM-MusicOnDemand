@@ -4,8 +4,7 @@ Module.register("MMM-MusicOnDemand",{
 		chromiumPath: "/usr/bin/chromium-browser", // Set: chromiumPath : null, if you want to use the puppeteer chromium
 		showCover : true,
 		showBrowser : false,  // change to true if you want to see whats going on in the browser
-		email: "maxmustermann@email.com",
-		password: "MaxMusterMann"
+		userDataDir : "/home/pi/.config/chromium" //the directory of your user data from the browser, default is for raspberry pi without changes
 	},
 
 	getStyles: function() {
@@ -47,10 +46,6 @@ Module.register("MMM-MusicOnDemand",{
 
 	socketNotificationReceived: function(notification, payload) {
 		switch(notification){
-			case("LogIn"):
-				this.closed = false;
-				this.init = "Logging in to deezer...";
-				break;
 			case("Ready"):
 				this.init = "";
 				break;
@@ -103,6 +98,7 @@ Module.register("MMM-MusicOnDemand",{
 					this.sendSocketNotification("PREVIOUS", "");
 					break;
 				case("Artist"):
+					console.error(payload);
 					this.sendSocketNotification("Artist", payload.Artist);				
 					break;
 				case("Close"):

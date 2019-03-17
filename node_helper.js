@@ -80,26 +80,20 @@ async function closeBrowser(stop){
 async function LoginDeezer(){
 	try{
 		if(self.config.chromiumPath != null){
-			self.browser = await puppeteer.launch({ executablePath: self.config.chromiumPath, ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
+			self.browser = await puppeteer.launch({ args: ['--user-data-dir=' + self.config.userDataDir], defaultViewport: {width : 1920, height:  1080}, executablePath: self.config.chromiumPath, ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
 		}else{
-			self.browser = await puppeteer.launch({ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
+			self.browser = await puppeteer.launch({args: ['--user-data-dir=' + self.config.userDataDir], defaultViewport: {width : 1920, height:  1080}, ignoreDefaultArgs: ['--mute-audio'], headless : !self.config.showBrowser }); // headless : false
 		}
 	
 		self.page = await self.browser.newPage();
 		
 		await self.page.setDefaultNavigationTimeout(120000);
-		//await page.setViewport({width:200, height:80});
-		await self.page.goto("https://www.deezer.com/login");
-		await self.page.type('#login_mail', self.config.email);
-		await self.page.type('#login_password', self.config.password);
-		await self.page.evaluate(()=>document.querySelector('#login_form_submit > span').click());
-		//await page.keyboard.press('Enter');
-		console.error("logging in...");
-		self.sendSocketNotification("LogIn", "");
-		await self.page.waitForNavigation({waitUntil:"networkidle0"});
+		await self.page.goto("https://www.deezer.com");
+
+		//await self.page.waitForNavigation(); // somehow doesn't work, just sits there for ever
 		self.sendSocketNotification("Ready", "");
 		console.error("ready to play music");
-		// await page.waitFor('.is-highlight')
+
 		self.loggedIn = true;
 		await getCover();
 		updateTitleAndArtist();
@@ -136,7 +130,7 @@ async function getCover(){
 		var link = await self.page.evaluate(()=>document.querySelector('#page_player > div > div.player-options > ul > li:nth-child(2) > button > figure > div > img').getAttribute('src'));
 		var newlink = link.replace("28x28", "380x380");
 		self.sendSocketNotification("Cover", newlink);
-		console.error("got coverlink: " + newlink); 
+		console.error("got coverlink: " + newlink + " old Link: " + link); 
 	}catch(error){
 		console.error(error);
 	}
@@ -181,6 +175,7 @@ async function searchArtist(artist){
 		if(!self.loggedIn){
 			await LoginDeezer()
 		}
+		console.error(artist);
 		console.error("Searching for " + artist);
 		await self.page.evaluate(()=>document.querySelector('#page_topbar > div.topbar-search > div > form > button.topbar-search-clear').click());
 		await self.page.type('#topbar-search', artist);
