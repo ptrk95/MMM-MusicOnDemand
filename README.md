@@ -81,7 +81,7 @@ To use the above features you have to send predefined notifications to this modu
 
 For example, this will search for the title "Losing it" if you send this with your module:
 ```
-this.sendNotification('AtMusicOnDemand', {message:Title, Title: 'Losing it'});
+this.sendNotification('AtMusicOnDemand', {message: "Title", Title: "Losing it"});
 ```
 As you can see the information about the name of the title is needed for this action, this is where a speech recognition software comes in handy. I already set up a couple of "transcription hooks" and even two [gactions](https://developers.google.com/actions/) in combination with [MMM-AssistantMk2](https://github.com/eouia/MMM-AssistantMk2), so that all the features are available. 
 
