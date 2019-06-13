@@ -90,7 +90,7 @@ As you can see the information about the name of the title is needed for this ac
 First you have to add the following commands to your config file:
 ```
 command: {
-"CLOSE_MUSIC": {
+	"CLOSE_MUSIC": {
 		notificationExec: {
 		      notification: "AtMusicOnDemand",
 		      payload: {
@@ -156,6 +156,14 @@ command: {
       			}
 		},
 	},
+	"FLOW": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+				message: "Flow",
+				}
+		},
+	},
 	
 },
 ```
@@ -183,6 +191,10 @@ transcriptionHook: {
 		"CLOSE_MUSIC":{
 			pattern: "stop music",
 			command: "CLOSE_MUSIC",
+		},
+		"FLOW":{
+			pattern: "play flow",
+			command: "FLOW",
 		},
 },
 ```

@@ -47,6 +47,9 @@ module.exports = NodeHelper.create({
 			case("Title"):
 				searchTitle(payload);
 				break;
+			case("FLOW"):
+				playFlow();
+				break;
 			default:
 				break;			
 		}
@@ -95,7 +98,6 @@ async function LoginDeezer(){
 		console.error("ready to play music");
 
 		self.loggedIn = true;
-		await getCover();
 		updateTitleAndArtist();
 	}catch(error){
 		console.error(error);
@@ -136,6 +138,7 @@ async function getCover(){
 	}
 
 }
+
 
 async function playMusic (){
 	try{
@@ -196,7 +199,6 @@ async function searchArtist(artist){
 			self.playingMusic = true;
 			update();
 		}
-		await getCover();
 	}catch(error){
 		console.error(error);
 	}
@@ -226,7 +228,6 @@ async function searchTitle(title){
 			self.playingMusic = true;
 			update();
 		}
-		getCover();
 	}catch(error){
 		console.error(error);
 	}
@@ -257,6 +258,7 @@ async function updateTitleAndArtist(){
 		CurrentTime : currentTime,
 		MaxTime : maxTime,
 	});
+	getCover();
 	}catch(error){
 		self.sendSocketNotification("Ads", "");
 		self.AdsPlaying = true;
@@ -275,7 +277,6 @@ async function nextTitle(){
 			self.playingMusic = true;
 			update();
 		}
-		getCover();
 		console.error("next title");
 	}catch(error){
 		console.error(error);
@@ -294,11 +295,27 @@ async function previousTitle (){
 			self.playingMusic = true;
 			update();
 		}
-		await getCover();
 		console.error("previous title");
 	}catch(error){
 		console.error(error);
 	}
     
+	
+}
+
+async function playFlow (){
+	try{
+		if(!self.playingMusic){
+			if(!self.loggedIn){
+				await LoginDeezer()
+			}
+			await self.page.evaluate(()=>document.querySelector('#page_content > div.channel > section.channel-section > div.carousel > div.container > div.carousel-wrapper > div.carousel-inner > ul > figure:nth-child(1) > div.slide-foreground > ul > li > button').click());
+			self.playingMusic = true;
+			update();
+			console.error("play flow");
+		}
+	}catch(error){1
+		console.error(error);
+	}
 	
 }
