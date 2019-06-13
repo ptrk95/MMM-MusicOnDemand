@@ -314,7 +314,7 @@ async function playFlow (){
 			update();
 			console.error("play flow");
 		}
-	}catch(error){1
+	}catch(error){
 		console.error(error);
 	}
 	
