@@ -50,6 +50,9 @@ module.exports = NodeHelper.create({
 			case("FLOW"):
 				playFlow();
 				break;
+			case("LOVED"):
+				playLoved();
+				break;
 			default:
 				break;			
 		}
@@ -138,7 +141,6 @@ async function getCover(){
 	}
 
 }
-
 
 async function playMusic (){
 	try{
@@ -309,10 +311,32 @@ async function playFlow (){
 			if(!self.loggedIn){
 				await LoginDeezer()
 			}
-			await self.page.evaluate(()=>document.querySelector('#page_content > div.channel > section.channel-section > div.carousel > div.container > div.carousel-wrapper > div.carousel-inner > ul > figure:nth-child(1) > div.slide-foreground > ul > li > button').click());
+			await self.page.evaluate(()=>document.querySelector('#page_content > div.channel > section:nth-child(1) > div.carousel > div:nth-child(2) > div.carousel-wrapper > div.carousel-inner > ul > figure:nth-child(1) > div.slide-foreground > ul > button').click());
 			self.playingMusic = true;
 			update();
 			console.error("play flow");
+		}
+	}catch(error){
+		console.error(error);
+	}
+	
+}
+
+async function playLoved (){
+	try{
+		if(!self.playingMusic){
+			if(!self.loggedIn){
+				await LoginDeezer()
+			}
+			await self.page.evaluate(()=>document.querySelector('#page_player > div.player-bottom > div.player-options > ul > li:nth-child(1) > ul > li:nth-child(2) > button').click());
+			await delay(300);
+			await self.page.evaluate(()=>document.querySelector('#page_sidebar > div:nth-child(2) > div.nano-content > ul > li:nth-child(4) > a').click());
+			await delay(300);
+			await self.page.waitForSelector('#page_profile > div:nth-child(2) > div > div > section > div:nth-child(2) > div > div.datagrid-toolbar > div:nth-child(1) > div > button');
+			await self.page.evaluate(()=>document.querySelector('#page_profile > div:nth-child(2) > div > div > section > div:nth-child(2) > div > div.datagrid-toolbar > div:nth-child(1) > div > button').click());
+			self.playingMusic = true;
+			update();
+			console.error("play loved");
 		}
 	}catch(error){
 		console.error(error);

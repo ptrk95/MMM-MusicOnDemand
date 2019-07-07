@@ -106,6 +106,12 @@ Module.register("MMM-MusicOnDemand",{
 				case("Title"):
 					this.sendSocketNotification("Title", payload.Title);
 					break;
+				case("Flow"):
+					this.sendSocketNotification("FLOW", "");
+					break;
+				case("Loved"):
+					this.sendSocketNotification("LOVED", "");
+					break;
 				default:
 					break;
 
