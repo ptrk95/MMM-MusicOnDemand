@@ -61,6 +61,8 @@ The module has for now 7 features:
 - Pause music
 - Play next title
 - Play previous title (if available)
+- Play Deezer Flow
+- Play your favourite tracks randomly
 - Stop music (closes browser, but module remains active)
 - Search a title and play it
 - Search a artist and play the top titles
@@ -76,6 +78,8 @@ To use the above features you have to send predefined notifications to this modu
 | "AtMusicOnDemand" | payload.message="Next" | Plays next Title |
 | "AtMusicOnDemand" | payload.message="Previous" | Plays previous Title |
 | "AtMusicOnDemand" | payload.message="Close" | Closes Browser |
+| "AtMusicOnDemand" | payload.message="Flow" | Plays your personal soundtrack made by Deezer |
+| "AtMusicOnDemand" | payload.message="Loved" | Plays your favourite tracks randomly |
 | "AtMusicOnDemand" | payload.message="Artist"; payload.Artist="NAME_OF_ARTIST" | Searches for a Artist and plays hits |
 | "AtMusicOnDemand" | payload.message="Title"; payload.Title="NAME_OF_TITLE" | Searches for a Title and plays it |
 
@@ -90,7 +94,7 @@ As you can see the information about the name of the title is needed for this ac
 First you have to add the following commands to your config file:
 ```
 command: {
-"CLOSE_MUSIC": {
+	"CLOSE_MUSIC": {
 		notificationExec: {
 		      notification: "AtMusicOnDemand",
 		      payload: {
@@ -156,6 +160,22 @@ command: {
       			}
 		},
 	},
+	"FLOW": {
+		notificationExec: {
+		      notification: "AtMusicOnDemand",
+		      payload: {
+				message: "Flow",
+				}
+		},
+	},
+	"LOVED": {
+      	notificationExec: {
+        	notification: "AtMusicOnDemand",
+        	payload: {
+          		message: "Loved",
+        	}
+      	},
+    },
 	
 },
 ```
@@ -184,6 +204,14 @@ transcriptionHook: {
 			pattern: "stop music",
 			command: "CLOSE_MUSIC",
 		},
+		"FLOW":{
+			pattern: "play flow",
+			command: "FLOW",
+		},
+		"LOVED":{
+      		pattern: "play my songs",
+      		command: "LOVED",
+    	},
 },
 ```
 
