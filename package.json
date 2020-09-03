@@ -4,7 +4,7 @@
   "description": "A module for Magic Mirror using music on demand.",
   "main": "MMM-MusicOnDemand.js",
   "dependencies": {
-    "puppeteer": "1.11.0"
+    "puppeteer": "1.13.0"
   },
   "devDependencies": {},
   "scripts": {
